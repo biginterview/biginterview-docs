@@ -1,0 +1,21 @@
+// Core variables
+@import "bootstrap/variables";
+
+// Custom Big Interview variables
+$bi-blue: #2092db;
+
+// Custom Bootstrap variables
+
+// -- Colors
+$link-color: $bi-blue;
+
+$brand-primary: $bi-blue;
+
+$btn-primary-bg: $bi-blue;
+$btn-primary-border: darken($bi-blue, 5%);
+
+$panel-primary-heading-bg: $bi-blue;
+$panel-primary-border: $bi-blue;
+
+// Core mixins
+@import "bootstrap/mixins";
