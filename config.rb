@@ -28,7 +28,7 @@ page '/api/*', layout: 'api'
 # Build Configuration
 configure :build do
   activate :minify_css
-  activate :minify_javascript, Uglifier.new(mangle: false)
+  activate :minify_javascript
   # activate :relative_assets
   # activate :asset_hash
   activate :gzip
