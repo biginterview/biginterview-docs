@@ -9,15 +9,27 @@
 $(document).ready(function() {
   $('#toc').tocify({
     context: '#docs',
-    selectors: 'h1, h2',
-    highlightOffset: 65,
-    extendPage: false,
+    selectors: 'h1, h2, h3',
+    highlightOffset: 100,
     theme: 'none',
     smoothScroll: false,
-    scrollTo: 60,
+    scrollTo: 85,
     showEffectSpeed: 0,
     hideEffectSpeed: 180,
-    scrollHistory: true
+    scrollHistory: true,
+    hashGenerator: function (text, element) {
+      return element.prop('id');
+    }
+  });
+
+  $('#docs a[href^="#"]').click(function(e) {
+    var href, $toc;
+    e.preventDefault();
+
+    href = $(this).attr('href').replace('#', '');
+    $toc = $('[data-unique="' + href + '"] > a');
+    console.log(href, $toc);
+    $toc.click();
   });
 
   var $resizable = $('[data-width-resize]');

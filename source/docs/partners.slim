@@ -2,7 +2,9 @@
 title: Partner Integration
 
 includes:
-  - getting_started
+  - introduction
+  - api
+  - integration
 
 layout: partners
 ---
@@ -13,8 +15,6 @@ layout: partners
       #toc
 
   .col-md-9.col-sm-8
-    .page-header: h1 Partner Integration
-
     #docs
       - current_page.data.includes.each do |doc|
         = partial "docs/partners/#{doc}"
