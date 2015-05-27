@@ -15,6 +15,9 @@ set :js_dir, 'assets/javascripts'
 set :images_dir, 'assets/images'
 set :fonts_dir, 'asset/fonts'
 
+# Directory Indexes
+activate :directory_indexes
+
 # Activate the syntax highlighter
 activate :syntax
 

@@ -1,0 +1,20 @@
+---
+title: Partner Integration
+
+includes:
+  - getting_started
+
+layout: partners
+---
+
+.row
+  #toc-column.col-md-3.col-sm-4.hidden-xs data-width-resize='#toc'
+    #nav-affix data-spy='affix'
+      #toc
+
+  .col-md-9.col-sm-8
+    .page-header: h1 Partner Integration
+
+    #docs
+      - current_page.data.includes.each do |doc|
+        = partial "docs/partners/#{doc}"

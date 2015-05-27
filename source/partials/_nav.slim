@@ -1,0 +1,26 @@
+nav.navbar.navbar-default.navbar-fixed-top [role="navigation"]
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed [type="button"
+        data-toggle="collapse"
+        data-target="#bi-nav-collapse"]
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+
+      a#bi-logo.navbar-brand href='/' Big Interview
+
+    #bi-nav-collapse.collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li.active
+          a href='/'
+            | Developer Documentation
+
+        li
+          a href=data.links.support
+            | Help & Support
+
+      .navbar-right
+        a#sign-in.btn.btn-primary.navbar-btn href=data.links.login
+          | Sign In

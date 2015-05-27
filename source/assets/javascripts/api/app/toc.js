@@ -16,6 +16,7 @@
       hideEffectSpeed: 180,
       ignoreSelector: '.toc-ignore',
       highlightOffset: 60,
+      highlightDefault: true,
       scrollTo: -1,
       scrollHistory: true,
       hashGenerator: function (text, element) {
@@ -45,4 +46,3 @@
   $(animate);
 
 })(window);
-
