@@ -7,18 +7,24 @@
 //= require_self
 
 $(document).ready(function() {
+  var showAndHide = !($(window).width() <= 768);
+
+  $('#docs table').addClass('table table-bordered');
+
   $('#toc').tocify({
     context: '#docs',
     selectors: 'h1, h2, h3',
-    highlightOffset: 100,
+    highlightOffset: 105,
+    highlightDefault: showAndHide,
     theme: 'none',
+    showAndHide: showAndHide,
     smoothScroll: false,
-    scrollTo: 85,
+    scrollTo: showAndHide ? 85 : 75,
     showEffectSpeed: 0,
     hideEffectSpeed: 180,
     scrollHistory: true,
     hashGenerator: function (text, element) {
-      return element.prop('id');
+      return element.prop('id').replace(':', '').replace('/', '-');
     }
   });
 
@@ -31,6 +37,8 @@ $(document).ready(function() {
     console.log(href, $toc);
     $toc.click();
   });
+
+
 
   var $resizable = $('[data-width-resize]');
   if ($resizable.length > 0) {
@@ -46,7 +54,7 @@ $(document).ready(function() {
         target.width(el.width() - (paddingLeft + paddingRight));
       });
     });
-
-    $(window).resize();
   }
+
+  $(window).resize();
 });

@@ -21,25 +21,67 @@
     border-bottom: 1px solid $border-color;
   }
 
+  h3 {
+    margin-left: 10px;
+    margin-top: 50px;
+  }
+
+  h3 + h4.request-type {
+    padding: 50px 10px 15px;
+    margin: -50px 0px 20px 0px;
+    background: #eeeeee;
+    border-top: 2px solid #cccccc;
+  }
+
   p, ul {
     font-family: $font-family-serif;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   p {
     margin: 0px 0px 20px 0px;
-    line-height: 30px;
+    line-height: 28px;
   }
 
-  pre {
-    margin: 20px 0px 20px 20px;
-    padding: 15px;
-    font-size: 14px;
+  ul {
+    li {
+      margin-bottom: 5px;
+      &:last-of-type {
+        margin-bottom: 0px;
+      }
+    }
+  }
+
+  .highlight {
+    pre {
+      word-wrap: normal;
+      code { white-space: pre; }
+    }
   }
 
   .alert {
     font-size: 14px;
     strong { text-decoration: underline; }
     line-height: 22px;
+  }
+
+  .label.get {
+    background-color: $brand-success;
+  }
+
+  .label.post {
+    background-color: $brand-primary;
+  }
+
+  .label.put {
+    background-color: $brand-warning;
+  }
+
+  .label.delete {
+    background-color: $brand-danger;
+  }
+
+  table.table {
+    width: auto !important;
   }
 }

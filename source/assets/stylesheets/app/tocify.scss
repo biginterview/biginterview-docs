@@ -2,6 +2,14 @@
 
 #toc-column {
   @include clearfix();
+
+  h3.toc-title {
+    margin: 0px 0px 10px 0px;
+
+    @media (min-width: $screen-sm-min) {
+      display: none;
+    }
+  }
 }
 
 #toc {
@@ -32,7 +40,8 @@
         font-size: 16px;
       }
 
-      &.tocify-focus a {
+      &.tocify-focus a,
+      &.tocify-hover a {
         color: $bi-blue;
       }
     }
@@ -41,7 +50,7 @@
       border: none;
     }
 
-    .tocify-subheader {
+    ul.tocify-subheader {
       border-top: $border;
       padding: 6px 15px;
       background: lighten(#ddd, 10%);
@@ -56,5 +65,16 @@
         }
       }
     }
+  }
+}
+
+
+@media (max-width: $screen-sm-min) {
+  #nav-affix {
+    position: relative;
+  }
+
+  #toc {
+    margin-top: 0px;
   }
 }
