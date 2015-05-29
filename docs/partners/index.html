@@ -20,7 +20,7 @@ temporary token through our API before redirecting your user to the Big
 Interview application.</p>
 
 <p>Everything you need to communicate with the Big Interview Partner API is
-described in the sections below:</p>
+described in the sections below.</p>
 
 <h2 id="api-keys">API Keys</h2>
 
@@ -58,8 +58,8 @@ the section below.</p>
 <h2 id="making-requests">Making Requests</h2>
 
 <p>Once your organization has at least one <a href="#api-keys">API Key</a>, you can start
-making requests to the Big Interview API. These requests will typically take the
-following HTTP format:</p>
+making requests to the Big Interview API. These requests should, at a minimum,
+take the following HTTP format:</p>
 <pre class="highlight http"><code><span class="nf">GET</span> <span class="nn">/api/{endpoint}</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="p">:</span> <span class="s">{org}.biginterview.com</span>
 <span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
@@ -71,11 +71,13 @@ following HTTP format:</p>
 <ul>
 <li>They have a Big Interview account at <code class="prettyprint">xyz.biginterview.com</code>.</li>
 <li>They created the following API Key: <code class="prettyprint">935d85189822bf96c28c4fa79d3d8f31</code>.</li>
-<li>They would like to get a user&rsquo;s progress and that user has an <code class="prettyprint">id</code> of <code class="prettyprint">123</code>.</li>
+<li>They would like to get a user&rsquo;s progress and that user has a <code class="prettyprint">partner_id</code> of
+<code class="prettyprint">abc123def</code>.</li>
 </ul>
 
-<p>A request based on that information will take the following HTTP format:</p>
-<pre class="highlight http"><code><span class="nf">GET</span> <span class="nn">/api/users/123/progress</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<p>A request based on that information will, at a minimum, have the following HTTP
+format:</p>
+<pre class="highlight http"><code><span class="nf">GET</span> <span class="nn">/api/users/abc123def/progress</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="p">:</span> <span class="s">xyz.biginterview.com</span>
 <span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
 <span class="na">Authorization</span><span class="p">:</span> <span class="s">935d85189822bf96c28c4fa79d3d8f31</span>
@@ -84,15 +86,18 @@ following HTTP format:</p>
 <h2 id="identifying-users">Identifying Users</h2>
 
 <p>Most REST-based APIs identify singular resources by a unique <code class="prettyprint">id</code> attribute. For
-example, fetching a singular User on a given API might might have a resource URI
+example, fetching a singule User on a given API might might have a resource URI
 like <code class="prettyprint">/users/:id</code>. Most of the time, the application backing the API will
 generate these unique ids for you, however, the Big Interview Partner API works
 a bit differently in that these unique ids are actually supplied by the partner
 during <a href="#create-or-update-a-user">initial account creation</a>.</p>
 
-<p>When making API calls on behalf of a Big Interview User, you will be responsible
-for supplying a <code class="prettyprint">partner_id</code> attribute that will uniquely identify the user in
-both your system and the Big Interview application.</p>
+<p>When making API calls on behalf of a user, you will be responsible for supplying
+a <code class="prettyprint">partner_id</code> attribute that will uniquely identify the user in both your system
+and the Big Interview application.</p>
+
+<p>The only case in which you will not be providing the API with the <code class="prettyprint">partner_id</code>
+is in the case of <a href="#anonymous-users">Anonymous Users</a>, which is explained below.</p>
 
 <h4 id="id-format">ID Format</h4>
 
@@ -102,16 +107,36 @@ both your system and the Big Interview application.</p>
 <li>May contain any number: <code class="prettyprint">0-9</code>.</li>
 <li>May contain any letter (lower or uppercase): <code class="prettyprint">a-z</code>/<code class="prettyprint">A-Z</code>.</li>
 <li>May contain a <code class="prettyprint">-</code> (dash) or a <code class="prettyprint">_</code> (underscore).</li>
-<li>May have a character length between <code class="prettyprint">1</code> and <code class="prettyprint">64</code>.</li>
 <li><strong>May not contain any other characters.</strong></li>
+<li>May have a character length between <code class="prettyprint">1</code> and <code class="prettyprint">64</code>.</li>
+<li>Must be unique to your organization.</li>
 </ul>
 
 <p>If this is a problem with your system, please let us know as soon as possible.</p>
 
+<h2 id="anonymous-users">Anonymous Users</h2>
+
 <div class="alert alert-info">
-  In the examples that follow, please remember to replace
-  <code>{partner_id}</code> with your user&rsquo;s unique id.
+  The ability to create temporary, anonymous users must be approved by Big
+  Interview before your organization can utilize this feature.
 </div>
+
+<p>Simply put, anonymous users are just regular users. However, there are <strong>two
+significant differences</strong> between the them:</p>
+
+<ol>
+<li>These users are <strong>temporary</strong>. Anonymous accounts will remain active for 24
+hours. Big Interview reserves these right to delete the account at any point
+after the initial 24-hour period.</li>
+<li>An anonymous user&rsquo;s <code class="prettyprint">partner_id</code> is actually generated by the API. It is
+unique to our system and, generally, will take the format of a <a href="http://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a>.
+This attribute will be returned in the <a href="#create-an-anonymous-user">create response</a>.</li>
+</ol>
+
+<p>Those differences aside, you can use the <code class="prettyprint">partner_id</code> returned from the
+create response anywhere else in the API that a <code class="prettyprint">partner_id</code> is referenced or
+required. Again, you can find out how to create anonymous users by reading our
+<a href="#create-an-anonymous-user">API method documentation</a>.</p>
 <h1 id="partner-api:-endpoints">Partner API: Endpoints</h1>
 
 <h2 id="users">Users</h2>
@@ -119,24 +144,96 @@ both your system and the Big Interview application.</p>
 <p>A user is a unique record who shares a single account between your partner
 application and Big Interview.</p>
 
-<h3 id="create/update-a-user">Create/Update a User</h3>
+<p>Endpoints that resuly in the creation of a user account also handle the initial
+generation <strong>Single Sign On</strong> tokens. All responses to these endpoints will
+include a <code class="prettyprint">token</code> object as part of the response. These tokens follow the same
+rules outlined in the <a href="#create-refresh-a-user">Create/Refresh a User</a> endpoint.</p>
+
+<h3 id="create-an-anonymous-user">Create an Anonymous User</h3>
+
+<h4 class="request-type">
+  <span class="label post">POST</span>
+  <code>/api/users/anonymous</code>
+</h4>
+
+<p>Anonymous users are simply temporary user&rsquo;s whose <code class="prettyprint">partner_id</code> is generated by
+the API. Read the <a href="#anonymous-users">Anonymous Users</a> section for more information.</p>
+
+<h4 id="request">Request</h4>
+<pre class="highlight http"><code><span class="nf">POST</span> <span class="nn">/api/users/anonymous</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">{org}.biginterview.com</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Authorization</span><span class="p">:</span> <span class="s">{api-key}</span>
+</code></pre>
+
+<h4 id="response">Response</h4>
+
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>201</td>
+<td>Anonymous user account was created.</td>
+</tr>
+</tbody></table>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"partner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{partner_id}"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"19633c68a809dda515d78bbee308012634b73f4142b4ae58d8790c7094c66417"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-05-28T17:16:18.817Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h3 id="create/refresh-a-user">Create/Refresh a User</h3>
 
 <h4 class="request-type">
   <span class="label post">POST</span>
   <code>/api/users/{partner_id}</code>
 </h4>
 
-<p>Creating and updating a User in the Big Interview system both utilize the same
-endpoint. This simplifies the process of ensuring User accounts exist on our
-system and reduces the functional and logical overhead on your end.</p>
+<p>Creating a User or refreshing their token in the Big Interview system both
+can be done with the same endpoint. This simplifies the process of ensuring User
+accounts exist on our system and reduces the functional and logical overhead on
+your end. Essentially, this endpoint is idempotent. User accounts are never
+duplicated, and the parameters required during create are simply ignore when
+submitted for an existing user.</p>
 
-<p>This endpoint is also capable of handling the generation and refreshing of
-<strong>Single Sign On</strong> tokens. All responses to this endpoint will include a <code class="prettyprint">token</code>
-object as part of the response. These tokens follow the same rules outlined in
-the user tokens endpoint and you can learn more about them in
-<a href="#refreshing-user-tokens">their documentation</a>.</p>
+<h4 id="partner-id">Partner ID</h4>
+
+<p>As noted in the <a href="#user-id">Identifying Users</a> section, it is your responsibility
+to ensure that the <code class="prettyprint">partner_id</code> is unique in your system for the user being
+created. That attribute is supplied here as part of the URI structure. For
+example, a user with a partner id of <code class="prettyprint">123</code> will have the URI endpoint
+<code class="prettyprint">/api/users/123</code>.</p>
+
+<p>There is currently no way to update an existing user&rsquo;s <code class="prettyprint">partner_id</code> in our
+system.</p>
+
+<h4 id="tokens">Tokens</h4>
+
+<p>This endpoint also returns a <code class="prettyprint">token</code> object in it&rsquo;s response. Tokens allow
+user&rsquo;s from your application to login to Big Interview without the need for
+entering password through our Single Sign On integration. That process
+utilizes tokens generated by this endpoint.</p>
+
+<h4 id="token-expiration">Token Expiration</h4>
+
+<p><strong>All tokens expire 48-hours after they are created.</strong> They cannot be used as
+part of our SSO integration after they expire, however, a user&rsquo;s token is
+automatically refreshed when making a call to this endpoint.</p>
 
 <h4 id="params">Params</h4>
+
+<div class="alert alert-info">
+  These parameters are <strong>required when creating a user</strong> and
+  <strong>ignored when updating a user</strong>.
+</div>
 
 <table><thead>
 <tr>
@@ -149,19 +246,19 @@ the user tokens endpoint and you can learn more about them in
 <tr>
 <td><strong>first_name</strong></td>
 <td><code class="prettyprint">String</code></td>
-<td>No</td>
+<td><strong>Creation Only</strong></td>
 <td>The first name of the user.</td>
 </tr>
 <tr>
 <td><strong>last_name</strong></td>
 <td><code class="prettyprint">String</code></td>
-<td>No</td>
+<td><strong>Creation Only</strong></td>
 <td>The last name of the user.</td>
 </tr>
 <tr>
 <td><strong>email</strong></td>
 <td><code class="prettyprint">String</code></td>
-<td>No</td>
+<td><strong>Creation Only</strong></td>
 <td>The email address of the user.</td>
 </tr>
 </tbody></table>
@@ -174,6 +271,26 @@ the user tokens endpoint and you can learn more about them in
 </code></pre>
 
 <h4 id="response">Response</h4>
+
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>User account was updated successfully.</td>
+</tr>
+<tr>
+<td>201</td>
+<td>User account was created successfully.</td>
+</tr>
+<tr>
+<td>422</td>
+<td>Provided attributes were invalid. (See message for more information)</td>
+</tr>
+</tbody></table>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"partner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{partner_id}"</span><span class="p">,</span><span class="w">
@@ -181,44 +298,6 @@ the user tokens endpoint and you can learn more about them in
       </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"19633c68a809dda515d78bbee308012634b73f4142b4ae58d8790c7094c66417"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-05-28T17:16:18.817Z"</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<h3 id="refreshing-user-tokens">Refreshing User Tokens</h3>
-
-<h4 class="request-type">
-  <span class="label put">PUT</span>
-  <code>/api/users/{partner_id}/token</code>
-</h4>
-
-<p>Tokens allow user&rsquo;s from your application to login to Big Interview without
-the need for a password through our Single Sign On integration. That process
-utilizes tokens generated by this endpoint.</p>
-
-<p>This endpoint requires that a user account has already been created via the
-<a href="#create-or-update-a-user">create/update API</a>. Because that endpoint establishes the user&rsquo;s
-initial <strong>Single Sign On</strong> token, this endpoint simply refreshes the existing
-token&rsquo;s expiry.</p>
-
-<h4 id="token-expiration">Token Expiration</h4>
-
-<p><strong>All tokens expire after 1 month.</strong> The token returned from this or any
-endpoint will expire at the same time that the User&rsquo;s Big Interview session
-token does.</p>
-
-<h4 id="request">Request</h4>
-<pre class="highlight http"><code><span class="nf">PUT</span> <span class="nn">/api/users/{partner_id}/token</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="p">:</span> <span class="s">{org}.biginterview.com</span>
-<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
-<span class="na">Authorization</span><span class="p">:</span> <span class="s">{api-key}</span>
-</code></pre>
-
-<h4 id="response">Response</h4>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"19633c68a809dda515d78bbee308012634b73f4142b4ae58d8790c7094c66417"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-05-28T17:16:18.817Z"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
