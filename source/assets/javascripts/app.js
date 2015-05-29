@@ -7,14 +7,14 @@
 //= require_self
 
 $(document).ready(function() {
-  var showAndHide = !($(window).width() <= 768);
+  var showAndHide = ($(window).width() > 768);
 
   $('#docs table').addClass('table table-bordered');
 
   $('#toc').tocify({
     context: '#docs',
     selectors: 'h1, h2, h3',
-    highlightOffset: 105,
+    highlightOffset: 120,
     highlightDefault: showAndHide,
     theme: 'none',
     showAndHide: showAndHide,
