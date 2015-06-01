@@ -21,11 +21,6 @@ Generating the token needed for Single Sign On is outlined in the our
 [API docs][user-create] above, but the following might be an example request and
 response for a user with a `partner_id` of `abc123`:
 
-<div class="alert alert-info">
-  The <strong>token</strong> described in the response below is shortened for
-  example purposes.
-</div>
-
 ```http
 POST /api/users/abc123 HTTP/1.1
 Host: xyz.biginterview.com
