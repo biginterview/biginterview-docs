@@ -67,6 +67,19 @@ https://xyz.biginterview.com/sso/login?token=19633c68
 After performing this redirect, the Single Sign On process is complete and your
 user will be logged in to the Big Interview web application.
 
+### SSO Secondary Redirects
+
+By default, users signing in to Big Interview through the SSO integration
+will be redirected to the member dashboard, which is at the following URL:
+
+```
+https://{org}.biginterview.com/members/dashboard
+```
+
+Plans to enable redirects to secondary pages within the Big Interview
+application through SSO integration are in the works but have not been finalized
+yet.
+
 [sso-step-1]: #step-1-generating-the-sso-token
 [sso-step-2]: #step-2-redirecting-to-big-interview
 [user-create]: #create-refresh-a-user
