@@ -32,6 +32,8 @@ Authorization: 935d85189822bf96c28c4fa79d3d8f31
 {
   "user": {
     "partner_id": "abc123",
+    "created_at": "2015-01-01T00:00:00.000Z",
+    "anonymous": false,
     "token": {
       "token": "19633c68",
       "expires_at": "2016-05-28T17:16:18.817Z"

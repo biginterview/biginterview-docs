@@ -38,7 +38,9 @@ Authorization: {api-key}
 ```json
 {
   "user": {
-    "partner_id": "{partner_id}",
+    "partner_id": "anon_abc123",
+    "created_at": "2015-01-01T00:00:00.000Z",
+    "anonymous": true,
     "token": {
       "token": "19633c68a809dda515d78bbee308012634b73f4142b4ae58d8790c7094c66417",
       "expires_at": "2016-05-28T17:16:18.817Z"
@@ -119,6 +121,8 @@ Authorization: {api-key}
 {
   "user": {
     "partner_id": "{partner_id}",
+    "created_at": "2015-01-01T00:00:00.000Z",
+    "anonymous": false,
     "token": {
       "token": "19633c68a809dda515d78bbee308012634b73f4142b4ae58d8790c7094c66417",
       "expires_at": "2016-05-28T17:16:18.817Z"
