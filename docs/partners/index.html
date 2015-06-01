@@ -302,4 +302,68 @@ automatically refreshed when making a call to this endpoint.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <h1 id="partner-integrations">Partner Integrations</h1>
+
+<h2 id="single-sign-on">Single Sign On</h2>
+
+<p>Our Single Sign On integration allows users of your application to login to Big
+Interview without having to enter a password. This is accomplished by generating
+a token using our Partner API and redirecting the user to a specific URL with
+that token.</p>
+
+<h3 id="overview">Overview</h3>
+
+<p>The Single Sign On Integration is a simple, 2-step process, both being outlined
+below:</p>
+
+<ol>
+<li><a href="#step-1-generating-the-sso-token">Generate an SSO Token</a></li>
+<li><a href="#step-2-redirecting-to-big-interview">Redirect to Big Interview with the token</a></li>
+</ol>
+
+<h3 id="step-1:-generating-the-sso-token">Step 1: Generating the SSO Token</h3>
+
+<p>Generating the token needed for Single Sign On is outlined in the our
+<a href="#create-refresh-a-user">API docs</a> above, but the following might be an example request and
+response for a user with a <code class="prettyprint">partner_id</code> of <code class="prettyprint">abc123</code>:</p>
+
+<div class="alert alert-info">
+  The <strong>token</strong> described in the response below is shortened for
+  example purposes.
+</div>
+<pre class="highlight http"><code><span class="nf">POST</span> <span class="nn">/api/users/abc123</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">xyz.biginterview.com</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Authorization</span><span class="p">:</span> <span class="s">935d85189822bf96c28c4fa79d3d8f31</span>
+</code></pre>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"partner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abc123"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"19633c68"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-05-28T17:16:18.817Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>The <code class="prettyprint">user.token</code> object contains the <code class="prettyprint">token</code> attribute which should be used in
+<a href="#step-2-redirecting-to-big-interview">Step 2</a> of the Single Sign On process. In the above example, this
+would be <code class="prettyprint">19633c68</code>.</p>
+
+<h3 id="step-2:-redirecting-to-big-interview">Step 2: Redirecting to Big Interview</h3>
+
+<p>With the token from <a href="#step-1-generating-the-sso-token">Step 1</a> in hand, your client should then
+redirect the user to your organizations SSO URL. That URL will take the following
+format:</p>
+<pre class="highlight plaintext"><code>https://{org}.biginterview.com/sso/login?token={token}
+</code></pre>
+
+<p>Assuming <strong>XYZ Corporation</strong> has a Big Interview application at the
+<code class="prettyprint">xyz</code> subdomain, and they would like to login the user using the token returned
+from <a href="#step-1-generating-the-sso-token">Step 1</a>, the SSO Redirect URL will take the following format:</p>
+<pre class="highlight plaintext"><code>https://xyz.biginterview.com/sso/login?token=19633c68
+</code></pre>
+
+<p>After performing this redirect, the Single Sign On process is complete and your
+user will be logged in to the Big Interview web application.</p>
 </div></div></div></div><div class="container-fluid"><footer><div class="row"><div class="col-md-12">© 2015 Skillful Communications, LLC | Big Interview and Interview Roulette are trademarks of Skillful Communications, LLC.</div></div></footer></div></body></html>
