@@ -76,10 +76,38 @@ will be redirected to the member dashboard, which is at the following URL:
 https://{org}.biginterview.com/members/dashboard
 ```
 
-Plans to enable redirects to secondary pages within the Big Interview
-application through SSO integration are in the works but have not been finalized
-yet.
+To have this integration redirect the user to different section of the Big
+Interview application, you can supply a `redirect_to` parameter to the SSO login
+resource URL and we will point the user to there instead.
+
+#### Example
+
+Say you wants to direct the user to a yet to be completed item in one of Big
+Interview's track guides and we have the following information:
+
+* You have the following SSO token for one of their users: `935d85189822bf9c`.
+* You would like to direct that user to an uncompleted track located inside
+  our application at `/members/curriculum?chapter=6`.
+
+We can do that with the following URL parameters:
+
+```
+token=abc123&redirect_to=%2Fmembers%2Fcurriculum%3Fchapter%3D6
+```
+
+<div class="alert alert-warning">
+  Please note the difference in the link returned by the
+  [track progress][user-track] endpoint and the one supplied to the SSO login
+  integration.
+</div>
+
+* **Track Progress Response:** `/members/curriculum?chapter=6`.
+* **SSO Redirect Parameter:** `%2Fmembers%2Fcurriculum%3Fchapter%3D6`.
+
+Note that the parameters supplied to the SSO integration are encoded. That part
+of the SSO process is something that your client library is responsible for.
 
 [sso-step-1]: #step-1-generating-the-sso-token
 [sso-step-2]: #step-2-redirecting-to-big-interview
 [user-create]: #create-refresh-a-user
+[user-track]: #retrieve-track-progress
