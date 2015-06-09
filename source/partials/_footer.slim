@@ -1,6 +1,9 @@
 footer
   .row
-    .col-md-12
+    .col-md-8
       | © #{Time.now.year} Skillful Communications, LLC | Big Interview
       |  and Interview Roulette are trademarks of Skillful Communications,
       |  LLC.
+
+    .col-md-4
+      .text-right Last Updated: #{Time.now.utc.strftime('%A, %B %-d, %Y')}
