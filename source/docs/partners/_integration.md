@@ -78,12 +78,12 @@ https://{org}.biginterview.com/members/dashboard
 
 To have this integration redirect the user to different section of the Big
 Interview application, you can supply a `redirect_to` parameter to the SSO login
-resource URL and we will point the user to there instead.
+resource URL and we will point the user there after login instead.
 
 #### Example
 
-Say you wants to direct the user to a yet to be completed item in one of Big
-Interview's track guides and we have the following information:
+Say you want to direct the user to a yet to be completed item in one of Big
+Interview's track guides and you have the following information:
 
 * You have the following SSO token for one of their users: `935d85189822bf9c`.
 * You would like to direct that user to an uncompleted track located at
@@ -92,7 +92,7 @@ Interview's track guides and we have the following information:
 We can do that with the following URL parameters:
 
 ```
-token=abc123&redirect_to=%2Fmembers%2Fcurriculum%3Fchapter%3D6
+token=935d85189822bf9c&redirect_to=%2Fmembers%2Fcurriculum%3Fchapter%3D6
 ```
 
 <div class="alert alert-warning">
