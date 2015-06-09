@@ -86,8 +86,8 @@ Say you wants to direct the user to a yet to be completed item in one of Big
 Interview's track guides and we have the following information:
 
 * You have the following SSO token for one of their users: `935d85189822bf9c`.
-* You would like to direct that user to an uncompleted track located inside
-  our application at `/members/curriculum?chapter=6`.
+* You would like to direct that user to an uncompleted track located at
+  `/members/curriculum?chapter=6`.
 
 We can do that with the following URL parameters:
 
@@ -97,8 +97,8 @@ token=abc123&redirect_to=%2Fmembers%2Fcurriculum%3Fchapter%3D6
 
 <div class="alert alert-warning">
   Please note the difference in the link returned by the
-  [track progress][user-track] endpoint and the one supplied to the SSO login
-  integration.
+  <a href="#retrieve-track-progress">track progress</a> endpoint and the one
+  supplied to the SSO login integration.
 </div>
 
 * **Track Progress Response:** `/members/curriculum?chapter=6`.
