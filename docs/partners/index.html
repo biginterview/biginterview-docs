@@ -412,6 +412,129 @@ these panels and display it back to users inside your application.</p>
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+
+<h3 id="retrieve-interview-progress">Retrieve Interview Progress</h3>
+
+<h4 class="request-type">
+  <span class="label get">GET</span>
+  <code>/api/users/{partner_id}/interviews</code>
+</h4>
+
+<p>The ability to participate in mock interview sessions is one of the defining
+features of the Big Interview application. Through this endpoint, you can
+access information pertaining to these interviews for a specific user.</p>
+
+<div class="alert alert-info">
+  This endpoint returns every interview the user has associated with their
+  account ordered by most recently updated to least recently updated.
+</div>
+
+<h4 id="the-interview-object">The interview object</h4>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">id</code></td>
+<td><strong>Integer</strong></td>
+<td>The id for interview object specific to the user being request.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">title</code></td>
+<td><strong>String</strong></td>
+<td>The title of the interview.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">interviewer_name</code></td>
+<td><strong>String</strong></td>
+<td>The name of the interviewer asking the first question for the set.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">category</code></td>
+<td><strong>String</strong></td>
+<td>The category title for this interview. <strong>Use for display purposes only.</strong></td>
+</tr>
+<tr>
+<td><code class="prettyprint">created_at</code></td>
+<td><strong>Date</strong></td>
+<td>The date this interview was created at in JSON ISO 8601 format.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">updated_at</code></td>
+<td><strong>Date</strong></td>
+<td>The date this interview was last updated at (last activity) in JSON ISO 8601 format.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">links.review</code></td>
+<td><strong>String</strong></td>
+<td>The redirect path to review a completed or in-progress interview.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">links.retake</code></td>
+<td><strong>String</strong></td>
+<td>The redirect path to start an entirely new interview with these same questions. <strong>This means a new interview will be created</strong>.</td>
+</tr>
+</tbody></table>
+
+<h4 id="request">Request</h4>
+<pre class="highlight http"><code><span class="nf">GET</span> <span class="nn">/api/users/{partner_id}/interviews</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">{org}.biginterview.com</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">application/json</span>
+<span class="na">Authorization</span><span class="p">:</span> <span class="s">{api-key}</span>
+</code></pre>
+
+<h4 id="response">Response</h4>
+
+<table><thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>User track progress information was loaded.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>User whose progress is being requested does not exist.</td>
+</tr>
+</tbody></table>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+   </span><span class="s2">"interviews"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">95607</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Top 10 Questions"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"interviewer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jordan"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Top 10 Questions: 1"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-18T16:37:13.000Z"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-25T05:00:00.000Z"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/95607/review"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"retake"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/interview_info/52"</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+         </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">91412</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Best Analytical Interview"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"interviewer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mark"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Competency/Skillset: Analytical Skills"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-30T20:44:21.000Z"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-01T21:00:10.000Z"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/91412/review"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"retake"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/interview_info/443"</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+   </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <h1 id="partner-integrations">Partner Integrations</h1>
 
 <h2 id="single-sign-on">Single Sign On</h2>
@@ -514,4 +637,4 @@ Interview&rsquo;s track guides and you have the following information:</p>
 
 <p>Note that the parameters supplied to the SSO integration are encoded. That part
 of the SSO process is something that your client library is responsible for.</p>
-</div></div></div></div><div class="container-fluid"><footer><div class="row"><div class="col-md-8">© 2015 Skillful Communications, LLC | Big Interview and Interview Roulette are trademarks of Skillful Communications, LLC.</div><div class="col-md-4"><div class="text-right">Last Updated: Tuesday, June 9, 2015</div></div></div></footer></div></body></html>
+</div></div></div></div><div class="container-fluid"><footer><div class="row"><div class="col-md-8">© 2015 Skillful Communications, LLC | Big Interview and Interview Roulette are trademarks of Skillful Communications, LLC.</div><div class="col-md-4"><div class="text-right">Last Updated: Tuesday, June 23, 2015</div></div></div></footer></div></body></html>
