@@ -1,1 +1,1 @@
-# Partner API: Endpoints
+# Partner API: Reference
