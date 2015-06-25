@@ -1,5 +1,3 @@
-# Partner Integrations
-
 ## Single Sign On
 
 Our Single Sign On integration allows users of your application to login to Big

@@ -26,22 +26,20 @@
   }
 
   h3 {
-    margin-left: 0px;
-    margin-top: 50px;
-    border-left: 2px solid $border-color;
-    padding-left: 8px;
+    font-size: 24px;
+    margin: 50px 0px 15px 0px;
   }
 
   h4 {
-    font-size: 22px;
+    color: #444;
+    font-size: 20px;
     margin: 30px 0px 15px;
   }
 
-  h3 + h4.request-type {
-    padding: 50px 10px 15px;
-    margin: -50px 0px 20px 0px;
+  h4.request-type {
+    padding: 15px 10px;
+    margin: 0px 0px 20px 0px;
     background: #eeeeee;
-    border-top: 2px solid #cccccc;
   }
 
   p, ul, ol {
