@@ -7,6 +7,8 @@ take while using the Big Interview web application.
 ### Registering webhooks
 
 Registering webhooks will be done through the admin dashboard and detailed here.
+There may be some authentication mechanism per webhook that will enable you to
+verify it came from Big Interview.
 
 ### Example Webhook Object
 
