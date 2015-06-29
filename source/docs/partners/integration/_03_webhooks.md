@@ -1,4 +1,8 @@
-## Webhooks (draft)
+## Webhooks
+
+<div class="alert alert-info">
+  This is a draft document for functionality that has not been implemented yet.
+</div>
 
 Our webhook integration allows you to setup your application to receive
 notifications about specific events related to activity and actions your users
