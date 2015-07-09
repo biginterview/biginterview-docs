@@ -769,27 +769,97 @@ of the SSO process is something that your client library is responsible for.</p>
 <h2 id="webhooks">Webhooks</h2>
 
 <div class="alert alert-info">
-  This is a draft document for functionality that has not been implemented yet.
+  These documents represent a 99% finalized version of the webhook
+  functionality, but should still be considred drafts.
 </div>
 
-<p>Our webhook integration allows you to setup your application to receive
-notifications about specific events related to activity and actions your users
-take while using the Big Interview web application.</p>
+<p>Webhooks are a system of automated notifications indicating that an event has
+occurred which was linked to one of your users in our system. Rather than
+requiring you to pull information via our API, webhooks push information to
+your destination when important events occur.</p>
+
+<p>Notifications are are delivered via <strong>HTTP POST</strong> requests to a destination
+endpoint on your server and are sent based on a <a href="#list-of-events">list of events</a>. Each
+webhook contains a notification type and the full API object that the
+notification is reporting on. This information can be used to update your
+system or to trigger business processes.</p>
 
 <h3 id="registering-webhooks">Registering webhooks</h3>
 
-<p>Registering webhooks will be done through the admin dashboard and detailed here.
-There may be some authentication mechanism per webhook that will enable you to
-verify it came from Big Interview.</p>
+<p>Registering a webhook can be done through your organization&rsquo;s admin area, which
+be reached by replacing <code class="prettyprint">{org}</code> in the following url with the subdomain for
+your organization:</p>
+<pre class="highlight plaintext"><code>https://{org}.biginterview.com/admin/login
+</code></pre>
 
-<h3 id="example-webhook-object">Example Webhook Object</h3>
+<p>Once there, a link entitled <strong>API Settings</strong> will be visible in the dropdown
+list under your name in the top navigation menu. Visiting that section will
+allow you to both <strong>create</strong> and <strong>delete</strong> webhooks for your organization. When
+you create a webhook, we also supply you with an accompanying verification key
+which is sent along in the <code class="prettyprint">Authorization</code> header of our <strong>POST</strong> request.</p>
+
+<h3 id="handling-webhooks">Handling webhooks</h3>
+
+<p>Assuming the following webhook registration details:</p>
+
+<ul>
+<li><strong>URL</strong>: <code class="prettyprint">https://app.mywebsite.com/webhooks/biginterview</code></li>
+<li><strong>Key</strong>: <code class="prettyprint">935d85189822bf96c28c4fa79d3d8f31</code></li>
+</ul>
+
+<p>Your endpoint should be able to handle the following request:</p>
+<pre class="highlight http"><code><span class="nf">POST</span> <span class="nn">/webhooks/biginterview</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="p">:</span> <span class="s">https://app.mywebsite.com</span>
+<span class="na">Authorization</span><span class="p">:</span> <span class="s">935d85189822bf96c28c4fa79d3d8f31</span>
+<span class="na">Accept</span><span class="p">:</span> <span class="s">*/*; q=0.5, application/xml</span>
+<span class="na">Accept-Encoding</span><span class="p">:</span> <span class="s">gzip, deflate</span>
+<span class="na">Cache-Control</span><span class="p">:</span> <span class="s">no-cache</span>
+<span class="na">Connection</span><span class="p">:</span> <span class="s">close</span>
+<span class="na">Content-Length</span><span class="p">:</span> <span class="s">158</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json; charset=utf-8</span>
+<span class="na">User-Agent</span><span class="p">:</span> <span class="s">BigInterview/1.0</span>
+
+<span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example.event"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"partner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{partner_id}"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h4 id="retries">Retries</h4>
+
+<p>We will resend webhook notifications every 10 minutes for a total of 6 attempts
+until both of the following are true:</p>
+
+<ul>
+<li>The webhook completes within 30 seconds.</li>
+<li>The webhook receives a <code class="prettyprint">200</code> response.</li>
+</ul>
+
+<h4 id="volume-and-order">Volume and Order</h4>
+
+<p>We strive to send webhook notifications as quickly as events occur in our
+system and in the exact order that these events occur.</p>
+
+<p>However, we can only guarantee that events are sent out and received in the
+order they occur in our system if your webhook receives</p>
+
+<h3 id="the-webhook-object">The webhook object</h3>
 
 <p>This is an example <strong>json</strong> payload that will be <strong>POST</strong>-ed to your registered
 webhook endpoint.</p>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://yourapplication.com/webhooks/biginterview"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"interview.created"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"partner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{partner_id}"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
   </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Interview"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -808,6 +878,40 @@ webhook endpoint.</p>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code class="prettyprint">id</code></td>
+<td><strong>String</strong></td>
+<td>The unqiue id that represents this webhook notification in our system.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">event</code></td>
+<td><strong>String</strong></td>
+<td>The name for the event from our <a href="#list-of-events">list of events</a> that this webhook is notifying you of.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">user.partner_id</code></td>
+<td><strong>String</strong></td>
+<td>The unique partner id for the user that triggered the event.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">object.type</code></td>
+<td><strong>String</strong></td>
+<td>The type of object represented by this webhook. See examples in the <strong>Object</strong> column from our <a href="#list-of-events">list of events</a>.</td>
+</tr>
+<tr>
+<td><code class="prettyprint">object.data</code></td>
+<td><strong>Object</strong></td>
+<td>The data for the object being represented. See links in the <strong>Object</strong> column from our <a href="#list-of-events">list of events</a>.</td>
+</tr>
+</tbody></table>
 
 <h3 id="list-of-events">List of Events</h3>
 
@@ -829,7 +933,7 @@ out.</p>
 <tr>
 <td><code class="prettyprint">interview.updated</code></td>
 <td><a href="#the-interview-object"><strong>Interview</strong></a></td>
-<td>An interview has been updated in our system. This might indicate a <code class="prettyprint">completed</code> status change, among other things.</td>
+<td>An interview has either become complete or incomplete.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">interview.deleted</code></td>
@@ -837,4 +941,4 @@ out.</p>
 <td>A user has deleted their interview.</td>
 </tr>
 </tbody></table>
-</div></div></div></div><div class="container-fluid"><footer><div class="row"><div class="col-md-8">© 2015 Skillful Communications, LLC | Big Interview and Interview Roulette are trademarks of Skillful Communications, LLC.</div><div class="col-md-4"><div class="text-right">Last Updated: Monday, June 29, 2015</div></div></div></footer></div></body></html>
+</div></div></div></div><div class="container-fluid"><footer><div class="row"><div class="col-md-8">© 2015 Skillful Communications, LLC | Big Interview and Interview Roulette are trademarks of Skillful Communications, LLC.</div><div class="col-md-4"><div class="text-right">Last Updated: Thursday, July 9, 2015</div></div></div></footer></div></body></html>
