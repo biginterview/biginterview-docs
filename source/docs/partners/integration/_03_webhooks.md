@@ -1,8 +1,9 @@
 ## Webhooks
 
-<div class="alert alert-info">
-  These documents represent a 99% finalized version of the webhook
-  functionality, but should still be considred drafts.
+<div class="alert alert-danger">
+  <strong>Disclaimer:</strong> These documents represent a BETA version of our
+  webhook integration. It is reliability is not part of our SLA and, as such,
+  the integration itself may change or be buggy and unreliable.
 </div>
 
 Webhooks are a system of automated notifications indicating that an event has
@@ -130,9 +131,7 @@ out.
 |------------|--------|-------------|
 | `interview.created` | [**Interview**][interview] | A user created an interview. |
 | `interview.updated` | [**Interview**][interview] | An interview has either become complete or incomplete. |
-| `interview.deleted` | [**Interview**][interview] | A user has deleted their interview. |
-
-
+| `interview.deleted` | None | A user has deleted their interview. |
 
 [interview]: #the-interview-object
 [list]: #list-of-events
