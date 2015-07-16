@@ -2,7 +2,7 @@
 
 <div class="alert alert-danger">
   <strong>Disclaimer:</strong> These documents represent a BETA version of our
-  webhook integration. It is reliability is not part of our SLA and, as such,
+  webhook integration. Its reliability is not part of our SLA and, as such,
   the integration itself may change or be buggy and unreliable.
 </div>
 
