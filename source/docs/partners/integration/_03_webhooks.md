@@ -2,8 +2,7 @@
 
 <div class="alert alert-danger">
   <strong>Disclaimer:</strong> These documents represent a BETA version of our
-  webhook integration. Its reliability is not part of our SLA and, as such,
-  the integration itself may change or be buggy and unreliable.
+  webhook integration. As with any beta, there may be bugs.
 </div>
 
 Webhooks are a system of automated notifications indicating that an event has
