@@ -820,14 +820,25 @@ which is sent along in the <code class="prettyprint">Authorization</code> header
 <span class="na">User-Agent</span><span class="p">:</span> <span class="s">BigInterview/1.0</span>
 
 <span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example.event"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"partner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{partner_id}"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="s2">"object"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+  </span><span class="s2">"webhook"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"event_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"interview.created"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"partner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{partner_id}"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"api_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"95607"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"api_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Interview"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"api_object"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">95607</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Top 10 Questions"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"interviewer_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jordan"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Top 10 Questions: 1"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-18T16:37:13.000Z"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-18T16:37:13.000Z"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/95607/review"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"retake"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/interview_info/52"</span><span class="w">
+       </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -835,7 +846,7 @@ which is sent along in the <code class="prettyprint">Authorization</code> header
 <h4 id="retries">Retries</h4>
 
 <p>We will resend webhook notifications every 10 minutes for a total of 6 attempts
-until both of the following are true:</p>
+over an one hour until both of the following are true:</p>
 
 <ul>
 <li>The webhook completes within 30 seconds.</li>
@@ -845,18 +856,18 @@ until both of the following are true:</p>
 <h4 id="volume-and-order">Volume and Order</h4>
 
 <p>We strive to send webhook notifications as quickly as events occur in our
-system and in the exact order that these events occur.</p>
-
-<p>However, we can only guarantee that events are sent out and received in the
-order they occur in our system if your webhook receives</p>
+system and in the exact order that they occurred. It is possible that, if your
+system does not handle our requests correctly and in a timely fashion, you may
+receive events out of order or in an order that does not match with your system.</p>
 
 <h3 id="the-webhook-object">The webhook object</h3>
 
-<p>This is an example <strong>json</strong> payload that will be <strong>POST</strong>-ed to your registered
-webhook endpoint.</p>
+<p>The following describes the attributes related to a webhook. Please note
+that the actual webhook <strong>POST</strong>-ed to your server will be additionally
+namespaced under the <code class="prettyprint">webhook</code> key.</p>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"interview.created"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"event_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"interview.created"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"partner_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{partner_id}"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"api_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"95607"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"api_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Interview"</span><span class="p">,</span><span class="w">
@@ -867,7 +878,7 @@ webhook endpoint.</p>
      </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Top 10 Questions: 1"</span><span class="p">,</span><span class="w">
      </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-18T16:37:13.000Z"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-18T16:37:13.000Z"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-18T16:37:13.000Z"</span><span class="p">,</span><span class="w">
      </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/95607/review"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"retake"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/interview_info/52"</span><span class="w">
@@ -896,7 +907,7 @@ webhook endpoint.</p>
 <tr>
 <td><code class="prettyprint">partner_id</code></td>
 <td><strong>String</strong></td>
-<td>The unique partner id for the user that triggered the event. All webhook events will have a <code class="prettyprint">partner_id</code>.</td>
+<td>The unique partner id for the User that triggered the event. All webhook events are associated with a user and have this information.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">api_id</code></td>
@@ -911,7 +922,7 @@ webhook endpoint.</p>
 <tr>
 <td><code class="prettyprint">api_object</code></td>
 <td><strong>Object</strong></td>
-<td>The data for the object being represented by the event. Some events, like <strong>deletes</strong>, have no object data. See the <strong>Object</strong> column from our <a href="#list-of-events">list of events</a> for more information.</td>
+<td>The data for the object being represented by the event. Some events, like <strong>deletes</strong>, have no object data. For those, the object type will be listed as <strong>None</strong> and this field will be equal to <code class="prettyprint">null</code>. See the <strong>Object</strong> column from our <a href="#list-of-events">list of events</a> for more information.</td>
 </tr>
 </tbody></table>
 
