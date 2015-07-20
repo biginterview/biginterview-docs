@@ -54,14 +54,25 @@ Content-Type: application/json; charset=utf-8
 User-Agent: BigInterview/1.0
 
 {
-  "id": "123456789",
-  "event": "example.event",
-  "user": {
-    "partner_id": "{partner_id}"
-  },
-  "object": {
-    "type": "Example",
-    "data": {}
+  "webhook": {
+    "id": "123456789",
+    "event_name": "interview.created",
+    "partner_id": "{partner_id}",
+    "api_id": "95607",
+    "api_type": "Interview",
+    "api_object": {
+       "id": 95607,
+       "title": "Top 10 Questions",
+       "interviewer_name": "Jordan",
+       "category": "Top 10 Questions: 1",
+       "completed": true,
+       "created_at": "2015-05-18T16:37:13.000Z",
+       "created_at": "2015-05-18T16:37:13.000Z",
+       "links": {
+          "review": "/members/mock_interviews/95607/review",
+          "retake": "/members/mock_interviews/interview_info/52"
+       }
+    }
   }
 }
 ```
@@ -69,7 +80,7 @@ User-Agent: BigInterview/1.0
 #### Retries
 
 We will resend webhook notifications every 10 minutes for a total of 6 attempts
-until both of the following are true:
+over an one hour until both of the following are true:
 
 * The webhook completes within 30 seconds.
 * The webhook receives a `200` response.
@@ -77,20 +88,20 @@ until both of the following are true:
 #### Volume and Order
 
 We strive to send webhook notifications as quickly as events occur in our
-system and in the exact order that these events occur.
-
-However, we can only guarantee that events are sent out and received in the
-order they occur in our system if your webhook receives
+system and in the exact order that they occurred. It is possible that, if your
+system does not handle our requests correctly and in a timely fashion, you may
+receive events out of order or in an order that does not match with your system.
 
 ### The webhook object
 
-This is an example **json** payload that will be **POST**-ed to your registered
-webhook endpoint.
+The following describes the attributes related to a webhook. Please note
+that the actual webhook **POST**-ed to your server will be additionally
+namespaced under the `webhook` key.
 
 ```json
 {
   "id": "123456789",
-  "event": "interview.created",
+  "event_name": "interview.created",
   "partner_id": "{partner_id}",
   "api_id": "95607",
   "api_type": "Interview",
@@ -101,7 +112,7 @@ webhook endpoint.
      "category": "Top 10 Questions: 1",
      "completed": true,
      "created_at": "2015-05-18T16:37:13.000Z",
-     "created_at": "2015-05-18T16:37:13.000Z",
+     "updated_at": "2015-05-18T16:37:13.000Z",
      "links": {
         "review": "/members/mock_interviews/95607/review",
         "retake": "/members/mock_interviews/interview_info/52"
@@ -114,10 +125,10 @@ webhook endpoint.
 |-----------|------|-------------|
 | `id` | **String** | The unqiue id that represents this webhook notification in our system. |
 | `event_name` | **String** | The name for the event from our [list of events][list] that this webhook is notifying you of. |
-| `partner_id` | **String** | The unique partner id for the user that triggered the event. All webhook events will have a `partner_id`. |
+| `partner_id` | **String** | The unique partner id for the User that triggered the event. All webhook events are associated with a user and have this information. |
 | `api_id` | **Integer** | The unique ID for the object represented by the event. |
 | `api_type` | **String** | The type of object represented by the event. Relates back to the API objects. |
-| `api_object` | **Object** | The data for the object being represented by the event. Some events, like **deletes**, have no object data. See the **Object** column from our [list of events][list] for more information. |
+| `api_object` | **Object** | The data for the object being represented by the event. Some events, like **deletes**, have no object data. For those, the object type will be listed as **None** and this field will be equal to `null`. See the **Object** column from our [list of events][list] for more information. |
 
 ### List of Events
 
