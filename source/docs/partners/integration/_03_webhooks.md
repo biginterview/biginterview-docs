@@ -91,24 +91,21 @@ webhook endpoint.
 {
   "id": "123456789",
   "event": "interview.created",
-  "user": {
-    "partner_id": "{partner_id}"
-  },
-  "object": {
-    "type": "Interview",
-    "data": {
-       "id": 95607,
-       "title": "Top 10 Questions",
-       "interviewer_name": "Jordan",
-       "category": "Top 10 Questions: 1",
-       "completed": true,
-       "created_at": "2015-05-18T16:37:13.000Z",
-       "created_at": "2015-05-18T16:37:13.000Z",
-       "links": {
-          "review": "/members/mock_interviews/95607/review",
-          "retake": "/members/mock_interviews/interview_info/52"
-       }
-    }
+  "partner_id": "{partner_id}",
+  "api_id": "95607",
+  "api_type": "Interview",
+  "api_object": {
+     "id": 95607,
+     "title": "Top 10 Questions",
+     "interviewer_name": "Jordan",
+     "category": "Top 10 Questions: 1",
+     "completed": true,
+     "created_at": "2015-05-18T16:37:13.000Z",
+     "created_at": "2015-05-18T16:37:13.000Z",
+     "links": {
+        "review": "/members/mock_interviews/95607/review",
+        "retake": "/members/mock_interviews/interview_info/52"
+     }
   }
 }
 ```
@@ -116,10 +113,11 @@ webhook endpoint.
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `id` | **String** | The unqiue id that represents this webhook notification in our system. |
-| `event` | **String** | The name for the event from our [list of events][list] that this webhook is notifying you of. |
-| `user.partner_id` | **String** | The unique partner id for the user that triggered the event. |
-| `object.type` | **String** | The type of object represented by this webhook. See examples in the **Object** column from our [list of events][list]. |
-| `object.data` | **Object** | The data for the object being represented. See links in the **Object** column from our [list of events][list]. |
+| `event_name` | **String** | The name for the event from our [list of events][list] that this webhook is notifying you of. |
+| `partner_id` | **String** | The unique partner id for the user that triggered the event. All webhook events will have a `partner_id`. |
+| `api_id` | **Integer** | The unique ID for the object represented by the event. |
+| `api_type` | **String** | The type of object represented by the event. Relates back to the API objects. |
+| `api_object` | **Object** | The data for the object being represented by the event. Some events, like **deletes**, have no object data. See the **Object** column from our [list of events][list] for more information. |
 
 ### List of Events
 
