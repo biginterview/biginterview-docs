@@ -67,7 +67,7 @@ User-Agent: BigInterview/1.0
        "category": "Top 10 Questions: 1",
        "completed": true,
        "created_at": "2015-05-18T16:37:13.000Z",
-       "created_at": "2015-05-18T16:37:13.000Z",
+       "updated_at": "2015-05-18T16:37:13.000Z",
        "links": {
           "review": "/members/mock_interviews/95607/review",
           "retake": "/members/mock_interviews/interview_info/52"
