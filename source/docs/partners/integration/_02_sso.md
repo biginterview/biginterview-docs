@@ -105,6 +105,26 @@ token=935d85189822bf9c&redirect_to=%2Fmembers%2Fcurriculum%3Fchapter%3D6
 Note that the parameters supplied to the SSO integration are encoded. That part
 of the SSO process is something that your client library is responsible for.
 
+### User Return URL
+
+By default, your users will be redirected to the Big Interview landing page for
+your organization after they logout.
+
+If that is not where you would like them to end up, you can supply us with a
+`return_url` parameter during the SSO login:
+
+For instance, if you want the user to be redirected to `https://google.com/`
+after they logout, you would construct your SSO login url like so:
+
+```
+token=935d85189822bf9c&return_url=https://google.com/
+```
+
+<div class="alert alert-warning">
+  Please note the <strong>return_url</strong> parameter must also be URL
+  encoded.
+</div>
+
 [sso-step-1]: #step-1-generating-the-sso-token
 [sso-step-2]: #step-2-redirecting-to-big-interview
 [user-create]: #create-refresh-a-user
