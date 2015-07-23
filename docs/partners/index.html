@@ -766,6 +766,24 @@ Interview&rsquo;s track guides and you have the following information:</p>
 
 <p>Note that the parameters supplied to the SSO integration are encoded. That part
 of the SSO process is something that your client library is responsible for.</p>
+
+<h3 id="user-return-url">User Return URL</h3>
+
+<p>By default, your users will be redirected to the Big Interview landing page for
+your organization after they logout.</p>
+
+<p>If that is not where you would like them to end up, you can supply us with a
+<code class="prettyprint">return_url</code> parameter during the SSO login:</p>
+
+<p>For instance, if you want the user to be redirected to <code class="prettyprint">https://google.com/</code>
+after they logout, you would construct your SSO login url like so:</p>
+<pre class="highlight plaintext"><code>token=935d85189822bf9c&amp;return_url=https://google.com/
+</code></pre>
+
+<div class="alert alert-warning">
+  Please note the <strong>return_url</strong> parameter must also be URL
+  encoded.
+</div>
 <h2 id="webhooks">Webhooks</h2>
 
 <div class="alert alert-danger">
@@ -954,4 +972,4 @@ out.</p>
 <td>A user has deleted their interview.</td>
 </tr>
 </tbody></table>
-</div></div></div></div><div class="container-fluid"><footer><div class="row"><div class="col-md-8">© 2015 Skillful Communications, LLC | Big Interview and Interview Roulette are trademarks of Skillful Communications, LLC.</div><div class="col-md-4"><div class="text-right">Last Updated: Monday, July 20, 2015</div></div></div></footer></div></body></html>
+</div></div></div></div><div class="container-fluid"><footer><div class="row"><div class="col-md-8">© 2015 Skillful Communications, LLC | Big Interview and Interview Roulette are trademarks of Skillful Communications, LLC.</div><div class="col-md-4"><div class="text-right">Last Updated: Thursday, July 23, 2015</div></div></div></footer></div></body></html>
