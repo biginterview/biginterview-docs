@@ -29,7 +29,7 @@ interview information.
    "created_at": "2015-05-18T16:37:13.000Z",
    "updated_at": "2015-05-25T05:00:00.000Z",
    "links": {
-      "review": "/members/mock_interviews/95607/review",
+      "review": "/members/mock_interviews/95607",
       "retake": "/members/mock_interviews/interview_info/52"
    }
 }
@@ -77,7 +77,7 @@ Authorization: {api-key}
          "created_at": "2015-05-18T16:37:13.000Z",
          "updated_at": "2015-05-25T05:00:00.000Z",
          "links": {
-            "review": "/members/mock_interviews/95607/review",
+            "review": "/members/mock_interviews/95607",
             "retake": "/members/mock_interviews/interview_info/52"
          }
       },
@@ -90,7 +90,7 @@ Authorization: {api-key}
          "created_at": "2015-04-30T20:44:21.000Z",
          "updated_at": "2015-05-01T21:00:10.000Z",
          "links": {
-            "review": "/members/mock_interviews/91412/review",
+            "review": "/members/mock_interviews/91412",
             "retake": "/members/mock_interviews/interview_info/443"
          }
       }
