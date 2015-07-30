@@ -138,7 +138,7 @@ out.
 | Event Name | Object | Description |
 |------------|--------|-------------|
 | `interview.created` | [**Interview**][interview] | A user created an interview. |
-| `interview.updated` | [**Interview**][interview] | An interview has either become complete or incomplete. |
+| `interview.updated` | [**Interview**][interview] | An interview was updated. |
 | `interview.deleted` | None | A user has deleted their interview. |
 
 [interview]: #the-interview-object
