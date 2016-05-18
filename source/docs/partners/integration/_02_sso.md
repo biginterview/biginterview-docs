@@ -108,11 +108,8 @@ of the SSO process is something that your client library is responsible for.
 ### User Return URL
 
 By default, your users will be redirected to the Big Interview landing page for
-your organization after they logout.
-
-If that is not where you would like them to end up, you can supply us with a
-`return_url` parameter during the SSO login:
-
+your organization after they logout. If that is not where you would like them to
+end up, you can supply us with a `return_url` parameter during the SSO login.
 For instance, if you want the user to be redirected to `https://google.com/`
 after they logout, you would construct your SSO login url like so:
 
