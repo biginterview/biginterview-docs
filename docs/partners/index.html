@@ -573,12 +573,12 @@ interview information.</p>
 <tr>
 <td><code class="prettyprint">links.review</code></td>
 <td><strong>String</strong></td>
-<td>The redirect path to review a completed or in-progress interview.</td>
+<td>The redirect path to review a completed or in-progress interview. This is relative the member application domain.</td>
 </tr>
 <tr>
 <td><code class="prettyprint">links.retake</code></td>
 <td><strong>String</strong></td>
-<td>The redirect path to start an entirely new interview with these same questions. <strong>This means a new interview will be created</strong>.</td>
+<td>The redirect path to start an entirely new interview with these same questions. This is relative the member application domain. <strong>This means a new interview will be created</strong>.</td>
 </tr>
 </tbody></table>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
@@ -590,8 +590,8 @@ interview information.</p>
    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-18T16:37:13.000Z"</span><span class="p">,</span><span class="w">
    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-25T05:00:00.000Z"</span><span class="p">,</span><span class="w">
    </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/95607"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"retake"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/interview_info/52"</span><span class="w">
+      </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/example/review/url"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"retake"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/example/retake/url"</span><span class="w">
    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
@@ -645,8 +645,8 @@ interview information.</p>
          </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-18T16:37:13.000Z"</span><span class="p">,</span><span class="w">
          </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-25T05:00:00.000Z"</span><span class="p">,</span><span class="w">
          </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/95607"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"retake"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/interview_info/52"</span><span class="w">
+           </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/example/review/url"</span><span class="p">,</span><span class="w">
+           </span><span class="s2">"retake"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/example/retake/url"</span><span class="w">
          </span><span class="p">}</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="p">{</span><span class="w">
@@ -658,8 +658,8 @@ interview information.</p>
          </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-04-30T20:44:21.000Z"</span><span class="p">,</span><span class="w">
          </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-01T21:00:10.000Z"</span><span class="p">,</span><span class="w">
          </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/91412"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"retake"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/interview_info/443"</span><span class="w">
+            </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/example/review/url"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"retake"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/example/retake/url"</span><span class="w">
          </span><span class="p">}</span><span class="w">
       </span><span class="p">}</span><span class="w">
    </span><span class="p">]</span><span class="w">
@@ -777,7 +777,7 @@ your organization after they logout.</p>
 
 <p>For instance, if you want the user to be redirected to <code class="prettyprint">https://google.com/</code>
 after they logout, you would construct your SSO login url like so:</p>
-<pre class="highlight plaintext"><code>token=935d85189822bf9c&amp;return_url=https://google.com/
+<pre class="highlight plaintext"><code>token=935d85189822bf9c&amp;return_url=https%3A%2F%2Fgoogle.com%2F
 </code></pre>
 
 <div class="alert alert-warning">
@@ -848,8 +848,8 @@ which is sent along in the <code class="prettyprint">Authorization</code> header
        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-18T16:37:13.000Z"</span><span class="p">,</span><span class="w">
        </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-05-18T16:37:13.000Z"</span><span class="p">,</span><span class="w">
        </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/95607"</span><span class="p">,</span><span class="w">
-          </span><span class="s2">"retake"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/members/mock_interviews/interview_info/52"</span><span class="w">
+         </span><span class="s2">"review"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/example/review/url"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"retake"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/example/retake/url"</span><span class="w">
        </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
