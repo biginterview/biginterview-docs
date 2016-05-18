@@ -1,10 +1,5 @@
 ## Webhooks
 
-<div class="alert alert-danger">
-  <strong>Disclaimer:</strong> These documents represent a BETA version of our
-  webhook integration. As with any beta, there may be bugs.
-</div>
-
 Webhooks are a system of automated notifications indicating that an event has
 occurred which was linked to one of your users in our system. Rather than
 requiring you to pull information via our API, webhooks push information to
