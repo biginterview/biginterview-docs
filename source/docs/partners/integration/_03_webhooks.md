@@ -64,8 +64,8 @@ User-Agent: BigInterview/1.0
        "created_at": "2015-05-18T16:37:13.000Z",
        "updated_at": "2015-05-18T16:37:13.000Z",
        "links": {
-          "review": "/members/mock_interviews/95607",
-          "retake": "/members/mock_interviews/interview_info/52"
+         "review": "/example/review/url",
+         "retake": "/example/retake/url"
        }
     }
   }

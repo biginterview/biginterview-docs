@@ -117,7 +117,7 @@ For instance, if you want the user to be redirected to `https://google.com/`
 after they logout, you would construct your SSO login url like so:
 
 ```
-token=935d85189822bf9c&return_url=https://google.com/
+token=935d85189822bf9c&return_url=https%3A%2F%2Fgoogle.com%2F
 ```
 
 <div class="alert alert-warning">

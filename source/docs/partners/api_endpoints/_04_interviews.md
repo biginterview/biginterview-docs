@@ -16,8 +16,8 @@ interview information.
 | `category` | **String** | The category title for this interview. **Use for display purposes only.** |
 | `created_at` | **Date** | The date this interview was created at in JSON ISO 8601 format.
 | `updated_at` | **Date** | The date this interview was last updated at (last activity) in JSON ISO 8601 format.
-| `links.review` | **String** | The redirect path to review a completed or in-progress interview. |
-| `links.retake` | **String** | The redirect path to start an entirely new interview with these same questions. **This means a new interview will be created**. |
+| `links.review` | **String** | The redirect path to review a completed or in-progress interview. This is relative the member application domain. |
+| `links.retake` | **String** | The redirect path to start an entirely new interview with these same questions. This is relative the member application domain. **This means a new interview will be created**. |
 
 ```json
 {
@@ -29,8 +29,8 @@ interview information.
    "created_at": "2015-05-18T16:37:13.000Z",
    "updated_at": "2015-05-25T05:00:00.000Z",
    "links": {
-      "review": "/members/mock_interviews/95607",
-      "retake": "/members/mock_interviews/interview_info/52"
+      "review": "/example/review/url",
+      "retake": "/example/retake/url"
    }
 }
 ```
@@ -77,8 +77,8 @@ Authorization: {api-key}
          "created_at": "2015-05-18T16:37:13.000Z",
          "updated_at": "2015-05-25T05:00:00.000Z",
          "links": {
-            "review": "/members/mock_interviews/95607",
-            "retake": "/members/mock_interviews/interview_info/52"
+           "review": "/example/review/url",
+           "retake": "/example/retake/url"
          }
       },
       {
@@ -90,8 +90,8 @@ Authorization: {api-key}
          "created_at": "2015-04-30T20:44:21.000Z",
          "updated_at": "2015-05-01T21:00:10.000Z",
          "links": {
-            "review": "/members/mock_interviews/91412",
-            "retake": "/members/mock_interviews/interview_info/443"
+            "review": "/example/review/url",
+            "retake": "/example/retake/url"
          }
       }
    ]
