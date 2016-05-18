@@ -770,12 +770,9 @@ of the SSO process is something that your client library is responsible for.</p>
 <h3 id="user-return-url">User Return URL</h3>
 
 <p>By default, your users will be redirected to the Big Interview landing page for
-your organization after they logout.</p>
-
-<p>If that is not where you would like them to end up, you can supply us with a
-<code class="prettyprint">return_url</code> parameter during the SSO login:</p>
-
-<p>For instance, if you want the user to be redirected to <code class="prettyprint">https://google.com/</code>
+your organization after they logout. If that is not where you would like them to
+end up, you can supply us with a <code class="prettyprint">return_url</code> parameter during the SSO login.
+For instance, if you want the user to be redirected to <code class="prettyprint">https://google.com/</code>
 after they logout, you would construct your SSO login url like so:</p>
 <pre class="highlight plaintext"><code>token=935d85189822bf9c&amp;return_url=https%3A%2F%2Fgoogle.com%2F
 </code></pre>
