@@ -87,7 +87,7 @@ differently in that these unique ids are actually supplied by the partner during
 [initial account creation][create-user].
 
 When making API calls on behalf of a user, you will be responsible for supplying
-a `partner_id` attribute that will uniquely identify the user your system.
+a `partner_id` attribute that will uniquely identify the user in your system.
 
 The only instance in which you will not be providing the API with the
 `partner_id` is in the case of [Anonymous Users][anon], which is explained
