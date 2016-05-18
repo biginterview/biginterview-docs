@@ -16,8 +16,8 @@ interview information.
 | `category` | **String** | The category title for this interview. **Use for display purposes only.** |
 | `created_at` | **Date** | The date this interview was created at in JSON ISO 8601 format.
 | `updated_at` | **Date** | The date this interview was last updated at (last activity) in JSON ISO 8601 format.
-| `links.review` | **String** | The redirect path to review a completed or in-progress interview. This is relative the member application domain. |
-| `links.retake` | **String** | The redirect path to start an entirely new interview with these same questions. This is relative the member application domain. **This means a new interview will be created**. |
+| `links.review` | **String** | The redirect path to review a completed or in-progress interview. This is relative to the member application domain. |
+| `links.retake` | **String** | The redirect path to start an entirely new interview with these same questions. This is relative to the member application domain. **This means a new interview will be created**. |
 
 ```json
 {
