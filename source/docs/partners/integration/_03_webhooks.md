@@ -14,7 +14,7 @@ system or to trigger business processes.
 ### Registering webhooks
 
 Registering a webhook can be done through your organization's admin area, which
-be reached by replacing `{org}` in the following url with the subdomain for
+you can reach by replacing `{org}` in the following url with the subdomain for
 your organization:
 
 ```
