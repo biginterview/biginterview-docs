@@ -19,8 +19,8 @@ progress information.
 | `tracks` | **Array** | An array of track items. |
 | `tracks[n].step` | **Integer** | The step number of this track item. |
 | `tracks[n].title` | **String** | The title of this track item. |
-| `tracks[n].step` | **String** | The redirect path to send the user to this track item. |
-| `tracks[n].completed` | **Boolean** | If the user has completed this step yet has been completed. |
+| `tracks[n].link` | **String** | The redirect path to send the user to this track item. |
+| `tracks[n].completed` | **Boolean** | If the user has completed this step yet or not. |
 
 ```json
 {
