@@ -4,7 +4,7 @@ A user is a unique record who shares a single account between your partner
 application and Big Interview.
 
 Endpoints that result in the creation of a user account also handle the initial
-generation [**Single Sign On**][sso] tokens. All responses to these endpoints
+generation of [**Single Sign On**][sso] tokens. All responses to these endpoints
 will include a `token` object as part of the response. These tokens follow the
 same rules outlined in the [Create/Refresh a User][user-create] endpoint.
 
@@ -17,7 +17,7 @@ information.
 |-----------|------|-------------|
 | `partner_id` | **String** | The id that is unique to this user scoped to your organization. |
 | `anonymous` | **Boolean** | If this user is [anonymous][anon] or has a regular account. |
-| `created_at` | **Date** | The date this interview was created in JSON ISO 8601 format. |
+| `created_at` | **Date** | The date this user account was created in JSON ISO 8601 format. |
 | `token.token` | **String** | The token that can be used to login the user through our [SSO][sso] integration. |
 | `token.expires_at` | **Date** | The exact time that the given token expires. |
 
