@@ -10,6 +10,6 @@ gem 'redcarpet', '~> 3.2.2'
 
 gem 'bootstrap-sass', require: false
 
-gem 'rake', '~> 10.4.2'
+gem 'rake', '~> 12.3.3'
 gem 'libv8', '3.16.14.15'
 gem 'therubyracer', '~> 0.12.1', platforms: :ruby
