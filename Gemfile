@@ -6,7 +6,7 @@ gem 'middleman-slim'
 gem 'middleman-gh-pages', '~> 0.0.3'
 gem 'middleman-syntax', '~> 2.0.0'
 gem 'rouge', '~> 1.8.0'
-gem 'redcarpet', '~> 3.2.2'
+gem 'redcarpet', '~> 3.5.1'
 
 gem 'bootstrap-sass', require: false
 
